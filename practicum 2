@@ -1,0 +1,84 @@
+import java.util.Scanner;
+class Student {
+    String studentID;
+    String studentName;
+    String department;
+    Student(String studentID, String studentName, String department) {
+        this.studentID = studentID;
+        this.studentName = studentName;
+        this.department = department;
+    }
+    void displayStudentDetails() {
+        System.out.println("\n--- Student Details ---");
+        System.out.println("Student ID   : " + studentID);
+        System.out.println("Student Name : " + studentName);
+        System.out.println("Department   : " + department);
+    }
+}
+class UndergraduateStudent extends Student {
+    int semester;
+    double cgpa;
+    UndergraduateStudent(String studentID, String studentName,String department, int semester, double cgpa) {
+        super(studentID, studentName, department);
+        this.semester = semester;
+        this.cgpa = cgpa;
+    }
+    void displayUGDetails() {
+        displayStudentDetails();
+        System.out.println("Semester     : " + semester);
+        System.out.println("CGPA         : " + cgpa);
+    }
+}
+class PostgraduateStudent extends Student {
+    String specialization;
+    String researchTopic;
+    PostgraduateStudent(String studentID, String studentName,
+                        String department, String specialization,
+                        String researchTopic) {
+        super(studentID, studentName, department);
+        this.specialization = specialization;
+        this.researchTopic = researchTopic;
+    }
+    void displayPGDetails() {
+        displayStudentDetails();
+        System.out.println("Specialization: " + specialization);
+        System.out.println("Research Topic: " + researchTopic);
+    }
+}
+public class StudentManagement {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("===== STUDENT MANAGEMENT SYSTEM =====");
+        System.out.println("1. Undergraduate Student");
+        System.out.println("2. Postgraduate Student");
+        System.out.print("Enter your choice: ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Enter Student ID: ");
+        String id = sc.nextLine();
+        System.out.print("Enter Student Name: ");
+        String name = sc.nextLine();
+        System.out.print("Enter Department: ");
+        String department = sc.nextLine();
+        if (choice == 1) {
+            System.out.print("Enter Semester: ");
+            int semester = sc.nextInt();
+            System.out.print("Enter CGPA: ");
+            double cgpa = sc.nextDouble();
+            UndergraduateStudent ug =
+                new UndergraduateStudent(id, name, department, semester, cgpa);
+            ug.displayUGDetails();
+        } else if (choice == 2) {
+            System.out.print("Enter Specialization: ");
+            String specialization = sc.nextLine();
+            System.out.print("Enter Research Topic: ");
+            String researchTopic = sc.nextLine();
+            PostgraduateStudent pg =
+                new PostgraduateStudent(id, name, department,specialization, researchTopic);
+            pg.displayPGDetails();
+        } else {
+            System.out.println("Invalid choice!");
+        }
+        sc.close();
+    }
+}
