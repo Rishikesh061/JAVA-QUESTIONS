@@ -1,0 +1,119 @@
+import java.util.Scanner;
+
+// Custom Exception
+
+class InsufficientBalanceException extends Exception {
+
+   public InsufficientBalanceException(String message) {
+
+       super(message);
+
+   }
+
+}
+
+// Account Class
+
+class Account {
+
+   String accountHolderName;
+
+   double accountBalance;
+
+   // Constructor
+
+   Account(String accountHolderName, double accountBalance) {
+
+       this.accountHolderName = accountHolderName;
+
+       this.accountBalance = accountBalance;
+
+   }
+
+   // Display account details
+
+   void displayDetails() {
+
+       System.out.println("Account Holder: " + accountHolderName);
+
+       System.out.println("Balance: ₹" + accountBalance);
+
+   }
+
+ 
+
+   // Withdraw method
+
+   void withdraw(double amount) throws InsufficientBalanceException {
+
+       if (amount < 0) {
+
+           System.out.println("Error: Withdrawal amount cannot be negative.");
+
+       }
+
+       else if (amount > accountBalance) {
+
+           throw new InsufficientBalanceException(
+
+               "Insufficient funds! Available balance is ₹" + accountBalance
+
+           );
+
+       }
+
+       else {
+
+           accountBalance -= amount;
+
+           System.out.println("Withdrawal successful: ₹" + amount);
+
+           System.out.println("Remaining Balance: ₹" + accountBalance);
+
+       }
+
+   }
+
+}
+
+// Main Class
+
+public class ATMWithdrawalSystem {
+
+   public static void main(String[] args) {
+
+       Scanner sc = new Scanner(System.in);
+
+       Account account = new Account("Rahul", 10000);
+
+       account.displayDetails();
+
+       try {
+
+           System.out.print("Enter withdrawal amount: ");
+
+           double amount = sc.nextDouble();
+
+           account.withdraw(amount);
+
+       }
+
+       catch (InsufficientBalanceException e) {
+
+           System.out.println("Error: " + e.getMessage());
+
+       }
+
+       catch (Exception e) {
+
+           System.out.println("Invalid input! Please enter a valid amount.");
+
+       }
+
+       System.out.println("Final Balance: ₹" + account.accountBalance);
+
+       sc.close();
+
+   }
+
+}
