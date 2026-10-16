@@ -1,0 +1,102 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+class Student {
+    int studentId;
+    String studentName;
+    String course;
+    int semester;
+    Student(int id, String name, String course, int semester) {
+        studentId = id;
+        studentName = name;
+        this.course = course;
+        this.semester = semester;
+    }
+    void display() {
+        System.out.println("Student ID: " + studentId);
+        System.out.println("Student Name: " + studentName);
+        System.out.println("Course: " + course);
+        System.out.println("Semester: " + semester);
+        System.out.println("----------------------");
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        ArrayList<Student> students = new ArrayList<>();
+        int choice = 0;
+        while (choice != 5) {
+            System.out.println("\n--- Student Record Management ---");
+            System.out.println("1. Add Student");
+            System.out.println("2. Remove Student");
+            System.out.println("3. Search Student");
+            System.out.println("4. Display All Students");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+            choice = sc.nextInt();
+            sc.nextLine();
+            if (choice == 1) {
+                System.out.print("Enter Student ID: ");
+                int id = sc.nextInt();
+                sc.nextLine();
+                System.out.print("Enter Student Name: ");
+                String name = sc.nextLine();
+                System.out.print("Enter Course/Department: ");
+                String course = sc.nextLine();
+                System.out.print("Enter Semester: ");
+                int semester = sc.nextInt();
+                sc.nextLine();
+                students.add(new Student(id, name, course, semester));
+                System.out.println("Student record added successfully.");
+            }
+            else if (choice == 2) {
+                System.out.print("Enter Student ID to remove: ");
+                int id = sc.nextInt();
+                sc.nextLine();
+                boolean found = false;
+                for (int i = 0; i < students.size(); i++) {
+                    if (students.get(i).studentId == id) {
+                        students.remove(i);
+                        found = true;
+                        break;
+                    }
+                }
+                if (found) {
+                    System.out.println("Student record removed successfully.");
+                } else {
+                    System.out.println("Student record not found.");
+                }
+            }
+            else if (choice == 3) {
+                System.out.print("Enter Student ID or Name to search: ");
+                String search = sc.nextLine();
+                boolean found = false;
+                for (Student s : students) {
+                    if (String.valueOf(s.studentId).equals(search)
+                            || s.studentName.equalsIgnoreCase(search)) {
+                        s.display();
+                        found = true;
+                    }
+                }
+                if (!found) {
+                    System.out.println("Student record not found.");
+                }
+            }
+            else if (choice == 4) {
+                if (students.isEmpty()) {
+                    System.out.println("No student records available.");
+                } else {
+                    for (Student s : students) {
+                        s.display();
+                    }
+                }
+            }
+            else if (choice == 5) {
+                System.out.println("Exiting Student Record Management System.");
+            }
+            else {
+                System.out.println("Invalid choice. Please try again.");
+            }
+        }
+        sc.close();
+    }
+}
