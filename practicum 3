@@ -1,0 +1,58 @@
+import java.util.Scanner;
+abstract class Vehicle {
+    String vehicleNumber;
+    String brand;
+    Vehicle(String vehicleNumber, String brand) {
+        this.vehicleNumber = vehicleNumber;
+        this.brand = brand;
+    }
+    abstract void startEngine();
+    final void showVehicleIdentity() {
+        System.out.println("Vehicle Number : " + vehicleNumber);
+        System.out.println("Brand          : " + brand);
+    }
+}
+class Car extends Vehicle {
+    Car(String vehicleNumber, String brand) {
+        super(vehicleNumber, brand);
+    }
+    void startEngine() {
+        System.out.println("Car engine starts with a key/button.");
+    }
+}
+class Bike extends Vehicle {
+    Bike(String vehicleNumber, String brand) {
+        super(vehicleNumber, brand);
+    }
+    void startEngine() {
+        System.out.println("Bike engine starts with a self-start/kick.");
+    }
+}
+public class VehicleManagement {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("1. Car");
+        System.out.println("2. Bike");
+        System.out.print("Enter your choice: ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+        System.out.print("Enter Vehicle Number: ");
+        String vehicleNumber = sc.nextLine();
+        System.out.print("Enter Brand: ");
+        String brand = sc.nextLine();
+        if (choice == 1) {
+            Car car = new Car(vehicleNumber, brand);
+            System.out.println("\n--- Car Details ---");
+            car.showVehicleIdentity();
+            car.startEngine();
+        } else if (choice == 2) {
+            Bike bike = new Bike(vehicleNumber, brand);
+            System.out.println("\n--- Bike Details ---");
+            bike.showVehicleIdentity();
+            bike.startEngine();
+        } else {
+            System.out.println("Invalid choice!");
+        }
+        sc.close();
+    }
+}
